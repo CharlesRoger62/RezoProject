@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -23,12 +25,28 @@ public class ChatObject extends UnicastRemoteObject implements ChatInterface {
         Thread.sleep(10000);
     }
 
+    @Override
+    public synchronized void broadcastMessage(String message, String topic) throws RemoteException, InterruptedException {
+        chat.sendMessageAndIncrease(message, topic, user);
+        for(ChatClientInterface chatClientInterface : chat.getChatClientInterfaces()){
+            if(chatClientInterface.getTopic().equals(topic)) {
+                if(chat.getGroupSubscribedPerson().get(chatClientInterface.getChatInterface().getUser()).get(topic) > 0){
+                    chatClientInterface.retreiveMessage(chat.getMessagesAndDecrease(topic, user));
+                }
+            }
+        }
+    }
+
     public List<String> getListGroup() throws RemoteException, InterruptedException{
         return chat.getAllGroups();
     }
 
     public List<String> getMyListGroup() throws RemoteException, InterruptedException{
-        return chat.getGroupSubscribedPerson().get(user);
+        List<String> list = new ArrayList<>();
+        chat.getGroupSubscribedPerson().get(user).forEach((k, v)->{
+            list.add(k);
+        });
+        return list;
     }
 
     public boolean joinGroup(String group) throws RemoteException, InterruptedException {
@@ -36,16 +54,28 @@ public class ChatObject extends UnicastRemoteObject implements ChatInterface {
         System.out.println(user.getLogin() + " is trying to join topic #" + group);
 
         if(chat.getAllGroups().contains(group)) {
-            if (!chat.getGroupSubscribedPerson().get(user).contains(group)) {
-                chat.getGroupSubscribedPerson().get(user).add(group);
+            if (!chat.getGroupSubscribedPerson().get(user).keySet().contains(group)) {
+                chat.getGroupSubscribedPerson().get(user).put(group, 0);
             }
 
+            try {
+                String url = "rmi://localhost:1099/"+group;
+                Naming.rebind(url, (ChatClientInterface)new ChatClientObject(this, group));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
 
             System.out.println(user.getLogin() + " has joined the topic #" + group);
 
             return true;
         }
         return false;
+    }
+
+    public User getUser() throws RemoteException, InterruptedException{
+        return user;
     }
 
     @Override

@@ -31,6 +31,5 @@ public class ConnectionObject extends UnicastRemoteObject
             }
         }
         return null;
-
     }
 } 
