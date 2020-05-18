@@ -2,7 +2,6 @@ package cli.commands.messagerie;
 
 import api.PDPublicAPI;
 import cli.framework.Command;
-import interfaces.ChatClientInterface;
 import interfaces.ChatInterface;
 import interfaces.StaticInfo;
 import logging.Logger;
