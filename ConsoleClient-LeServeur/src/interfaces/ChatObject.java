@@ -37,9 +37,6 @@ public class ChatObject extends UnicastRemoteObject implements ChatInterface {
                     user.getClientInterface().retreiveMessage("New# " + chat.getMessages().get(topic).get(i).toString());
                 }
             }
-            for (int i = channelSize - count; i < channelSize; i++) {
-                user.getClientInterface().retreiveMessage(chat.getMessages().get(topic).get(i).toString());
-            }
         }
         user.indexReset(topic);
     }
