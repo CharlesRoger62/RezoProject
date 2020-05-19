@@ -18,7 +18,11 @@ public class Shell<T> {
     public final void run() {
         try {
             if(StaticInfo.getChatInterface() != null) {
-                Logger.getLogger().println((StaticInfo.getChatInterface().isNewPrivateMessage()) ? "You have a new private message" : "no new message");
+                Logger.getLogger().println((StaticInfo.getChatInterface().isNewPrivateMessage()) ? "You have a new private message" : "");
+                List<String> str = StaticInfo.getChatInterface().feedbackTopics();
+                for(String s : str){
+                    Logger.getLogger().println(s);
+                }
             }
         } catch (RemoteException e) {
             e.printStackTrace();

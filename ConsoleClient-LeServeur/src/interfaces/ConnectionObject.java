@@ -35,4 +35,9 @@ public class ConnectionObject extends UnicastRemoteObject
         return null;
 
     }
+
+    @Override
+    public ChatInterface register(String login, String password, String pseudo, ClientInterface clientInterface) throws RemoteException, InterruptedException {
+        return null;
+    }
 } 

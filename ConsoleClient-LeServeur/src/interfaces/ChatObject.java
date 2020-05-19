@@ -137,4 +137,16 @@ public class ChatObject extends UnicastRemoteObject implements ChatInterface {
             }
         }
     }
+
+    @Override
+    public List<String> feedbackTopics() throws RemoteException, InterruptedException {
+        List<String> str = new ArrayList<>();
+        List<String> tops = chat.getTopics(user);
+        for(String t : tops){
+            if(user.getIndex(t) != 0){
+                str.add("New messages in Topic #"+t);
+            }
+        }
+        return str;
+    }
 }

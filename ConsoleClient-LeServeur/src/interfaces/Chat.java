@@ -54,4 +54,8 @@ public class Chat {
     public List<User> getAllUser(){
         return new ArrayList<>(groupSubscribedPerson.keySet());
     }
+
+    public List<String> getTopics(User user) {
+        return groupSubscribedPerson.get(user);
+    }
 }

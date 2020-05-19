@@ -25,4 +25,6 @@ public interface ChatInterface extends Remote {
     public boolean isNewPrivateMessage() throws RemoteException, InterruptedException;
 
     public void sendPrivateMessage(String pseudo, String message) throws RemoteException, InterruptedException;
+
+    public List<String> feedbackTopics() throws RemoteException, InterruptedException;
 }
