@@ -43,10 +43,10 @@ public class Connect extends Command<PDPublicAPI> {
                 Logger.getLogger().println("Wrong login/password");
             }
             else {
-                Logger.getLogger().println("");
+                Logger.getLogger().println("---------------------------------------");
                 Logger.getLogger().println("Welcome "+login + " !");
                 Logger.getLogger().println("Type back to disconnect and ? for help.");
-                Logger.getLogger().println("");
+                Logger.getLogger().println("---------------------------------------");
 
                 StaticInfo.setChatInterface(chatInterface);
 

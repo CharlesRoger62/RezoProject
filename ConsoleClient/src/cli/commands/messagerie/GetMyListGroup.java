@@ -28,7 +28,6 @@ public class GetMyListGroup extends Command<PDPublicAPI> {
             Logger.getLogger().println(s + " : Subscribed");
         }
         Logger.getLogger().println();
-
     }
 
     @Override

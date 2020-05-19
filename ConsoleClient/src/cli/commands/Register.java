@@ -45,10 +45,10 @@ public class Register extends Command<PDPublicAPI> {
                 Logger.getLogger().println("you are missing some arguments, check ?");
             }
             else {
-                Logger.getLogger().println("");
+                Logger.getLogger().println("---------------------------------------");
                 Logger.getLogger().println("Welcome "+login + " !");
                 Logger.getLogger().println("Type back to disconnect and ? for help.");
-                Logger.getLogger().println("");
+                Logger.getLogger().println("---------------------------------------");
 
                 StaticInfo.setChatInterface(chatInterface);
 

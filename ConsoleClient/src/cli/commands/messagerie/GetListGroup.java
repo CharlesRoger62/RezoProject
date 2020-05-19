@@ -23,13 +23,9 @@ public class GetListGroup extends Command<PDPublicAPI> {
     @Override
     public void execute() throws Exception {
         ChatInterface chatInterface = StaticInfo.getChatInterface();
-        //Logger.getLogger().println(chatInterface.getListGroup());
         List <String> listGroup = chatInterface.getListGroup();
         List <String> listGroupUser = chatInterface.getMyListGroup();
 
-
-
-        Logger.getLogger().println();
         Logger.getLogger().println("Topics : ");
         for (String s : listGroup){
             if (listGroupUser.contains(s)){
@@ -40,8 +36,6 @@ public class GetListGroup extends Command<PDPublicAPI> {
             }
         }
         Logger.getLogger().println();
-
-
     }
 
     @Override
