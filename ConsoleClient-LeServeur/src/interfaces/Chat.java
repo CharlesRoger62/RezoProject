@@ -1,15 +1,13 @@
 package interfaces;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Chat {
     private static Chat chat;
 
-    private  List<String> allGroups;
-    private  Map<User, List<String>> groupSubscribedPerson;
+    private List<String> allGroups;
+    private Map<User, List<String>> groupSubscribedPerson;
+    private Map<String, List<Message>> messages;
 
     Chat()  {
          allGroups = new ArrayList<>();
@@ -24,6 +22,10 @@ public class Chat {
 
         groupSubscribedPerson.put(user, new ArrayList<>());
         groupSubscribedPerson.put(user2, new ArrayList<>());
+        messages = new HashMap<>();
+        messages.put("1", new ArrayList<>());
+        messages.put("2", new ArrayList<>());
+        messages.put("3", new ArrayList<>());
     }
 
     public static Chat getChat()  {
@@ -31,6 +33,14 @@ public class Chat {
             chat = new Chat();
         }
         return chat;
+    }
+
+    public Map<String, List<Message>> getMessages() {
+        return messages;
+    }
+
+    public synchronized void addMessages(String topic, Message message) {
+        messages.get(topic).add(message);
     }
 
     public List<String> getAllGroups() {

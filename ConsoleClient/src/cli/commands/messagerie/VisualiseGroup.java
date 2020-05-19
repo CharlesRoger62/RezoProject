@@ -6,6 +6,7 @@ import interfaces.StaticInfo;
 import cli.framework.Shell;
 
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 public class VisualiseGroup extends Command<PDPublicAPI> {
@@ -36,15 +37,13 @@ public class VisualiseGroup extends Command<PDPublicAPI> {
         System.out.println("Connected to topic #"+idTopic+" as "+"\u001B[31m"+pseudo+"\u001B[0m");
         System.out.println("Type exit to leave.");
         System.out.println("");
+        StaticInfo.getChatInterface().connectedTopic(idTopic);
         try
         {
-            java.io.BufferedReader stdin =
-                    new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
+            java.io.BufferedReader stdin = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
             while (true)
             {
                 String s = stdin.readLine();
-
-
                 if(s == null){
                     exit();
                 }
@@ -52,12 +51,8 @@ public class VisualiseGroup extends Command<PDPublicAPI> {
                     exit();
                 }
                 else if (s.length()>0)
-                { String msg="";
-                   
-                  msg="\u001B[47m"+"\u001B[31m"+pseudo + ": " +"\u001B[30m" + s + "\u001B[0m" + "\u001B[40m";
-
-                  //Publish the message :
-                  System.out.println("Recu msg"+msg);
+                {
+                    StaticInfo.getChatInterface().broadcastMessage(s);
                 }
             }
         }
@@ -75,6 +70,13 @@ public class VisualiseGroup extends Command<PDPublicAPI> {
 
     private void exit()
     {
+        try {
+            StaticInfo.getChatInterface().connectedTopic(null);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("");
         System.out.println("\u001B[31m"+pseudo+"\u001B[0m"+" left topic #"+idTopic);
         System.out.println("");
