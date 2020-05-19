@@ -35,6 +35,10 @@ public class Chat {
         return chat;
     }
 
+    public void addUser(User user){
+        groupSubscribedPerson.put(user, new ArrayList<>());
+    }
+
     public Map<String, List<Message>> getMessages() {
         return messages;
     }

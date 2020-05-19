@@ -38,6 +38,13 @@ public class ConnectionObject extends UnicastRemoteObject
 
     @Override
     public ChatInterface register(String login, String password, String pseudo, ClientInterface clientInterface) throws RemoteException, InterruptedException {
-        return null;
+        User user = new User(login, password, pseudo);
+        Chat.getChat().addUser(user);
+        usersList.add(user);
+        ChatObject messagerieObject = new ChatObject(user);
+        System.out.println(user.getLogin() + " is now registered");
+        user.setClientInterface(clientInterface);
+        user.setOnApp(true);
+        return messagerieObject;
     }
 } 

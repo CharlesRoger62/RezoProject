@@ -2,6 +2,7 @@
 import api.PDPublicAPI;
 import cli.commands.Connect;
 import cli.commands.Quit;
+import cli.commands.Register;
 import interfaces.*;
 
 
@@ -19,8 +20,8 @@ public class Client extends Shell<PDPublicAPI> {
         register(
                 // Exiting the client
                 Quit.class,
-                            Connect.class
-                
+                Connect.class,
+                Register.class
         );
     }
 
