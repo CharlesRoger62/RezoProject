@@ -29,6 +29,14 @@ public class ChatObject extends UnicastRemoteObject implements ChatInterface {
         Integer count = user.getIndex(topic);
         Integer channelSize = chat.getMessages().get(topic).size();
         if(count != 0 && channelSize != 0) {
+            for(int i = 0; i<channelSize; i++){
+                if(i < channelSize - count) {
+                    user.getClientInterface().retreiveMessage(chat.getMessages().get(topic).get(i).toString());
+                }
+                else{
+                    user.getClientInterface().retreiveMessage("New# " + chat.getMessages().get(topic).get(i).toString());
+                }
+            }
             for (int i = channelSize - count; i < channelSize; i++) {
                 user.getClientInterface().retreiveMessage(chat.getMessages().get(topic).get(i).toString());
             }
@@ -46,7 +54,7 @@ public class ChatObject extends UnicastRemoteObject implements ChatInterface {
         for(User user : users) {
             if(user.getClientInterface() != null && user != this.user && subs.get(user).contains(topic)) {
                 if(user.isOnApp() && user.isConnectedTopic(topic)) {
-                    user.getClientInterface().retreiveMessage(message.toString());
+                    user.getClientInterface().retreiveMessage("New# "+ message.toString());
                 }
                 else{
                     user.increaseIndex(topic);
