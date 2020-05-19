@@ -46,9 +46,11 @@ public class VisualiseGroup extends Command<PDPublicAPI> {
                 String s = stdin.readLine();
                 if(s == null){
                     exit();
+                    return;
                 }
                 else if (s.equals("exit")){
                     exit();
+                    return;
                 }
                 else if (s.length()>0)
                 {
@@ -80,18 +82,5 @@ public class VisualiseGroup extends Command<PDPublicAPI> {
         System.out.println("");
         System.out.println("\u001B[31m"+pseudo+"\u001B[0m"+" left topic #"+idTopic);
         System.out.println("");
-
-        Shell<PDPublicAPI> shell = new Shell<>();
-        shell.system = new PDPublicAPI();
-        shell.invite = "Discord>";
-        shell.register(
-                GetListGroup.class,
-                GetMyListGroup.class,
-                VisualiseGroup.class,
-                JoinGroup.class
-        );
-        shell.run();
-
-        //System.exit(0);
     }
 }
