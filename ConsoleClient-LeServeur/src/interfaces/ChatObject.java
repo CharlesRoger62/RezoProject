@@ -28,7 +28,7 @@ public class ChatObject extends UnicastRemoteObject implements ChatInterface {
         String topic = user.getConnectedTopic();
         Integer count = user.getIndex(topic);
         Integer channelSize = chat.getMessages().get(topic).size();
-        if(count != 0 && channelSize != 0) {
+        if(channelSize != 0) {
             for(int i = 0; i<channelSize; i++){
                 if(i < channelSize - count) {
                     user.getClientInterface().retreiveMessage(chat.getMessages().get(topic).get(i).toString());
@@ -118,7 +118,7 @@ public class ChatObject extends UnicastRemoteObject implements ChatInterface {
         List<String> str = new ArrayList<>();
         for(User u : users){
             List<String> tmp = user.getPrivateMessagesFrom(u);
-            if(user != u && tmp.size() > 0){
+            if(tmp.size() > 0){
                 str.add("======================================");
                 str.add("Private messages from " + u.getPseudo());
                 str.add("======================================");
