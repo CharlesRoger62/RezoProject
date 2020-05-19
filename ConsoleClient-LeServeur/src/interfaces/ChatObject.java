@@ -104,4 +104,37 @@ public class ChatObject extends UnicastRemoteObject implements ChatInterface {
 
         return list;
     }
+
+    public List<String> getPrivateMessages() throws RemoteException, InterruptedException {
+        List<User> users = chat.getAllUser();
+        List<String> str = new ArrayList<>();
+        for(User u : users){
+            List<String> tmp = user.getPrivateMessagesFrom(u);
+            if(user != u && tmp.size() > 0){
+                str.add("======================================");
+                str.add("Private messages from " + u.getPseudo());
+                str.add("======================================");
+                for(String msg : tmp){
+                    str.add(msg);
+                }
+                str.add("");
+            }
+        }
+        user.setPrivateMessages(new ArrayList<>());
+        return str;
+    }
+
+    public boolean isNewPrivateMessage() throws RemoteException, InterruptedException{
+        return user.getPrivateMessages().size() != 0;
+    }
+
+    public void sendPrivateMessage(String pseudo, String message) throws RemoteException, InterruptedException{
+        List<User> users = chat.getAllUser();
+        for(User u : users){
+            if(u.getPseudo().equals(pseudo)){
+                u.sendPrivateMessage(new Message(user, message));
+                return;
+            }
+        }
+    }
 }

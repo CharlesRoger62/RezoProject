@@ -22,7 +22,7 @@ public class ConnectionObject extends UnicastRemoteObject
         Thread.sleep(10000);
     }
 
-    public ChatInterface connect(String userLogin, String passwordLogin, ClientInterface clientInterface) throws RemoteException, InterruptedException{
+    public synchronized ChatInterface connect(String userLogin, String passwordLogin, ClientInterface clientInterface) throws RemoteException, InterruptedException{
         for (User user : usersList){
             if (user.getLogin().equals(userLogin) && user.getPassword().equals(passwordLogin)){
                 ChatObject messagerieObject = new ChatObject(user);

@@ -73,7 +73,7 @@ public class User {
     }
 
     public boolean isConnectedTopic(String topic){
-        return topic == connectedTopic;
+        return topic.equals(connectedTopic);
     }
 
     public String getConnectedTopic() {
@@ -98,5 +98,9 @@ public class User {
 
     public String getLogin() {
         return login;
+    }
+
+    public void sendPrivateMessage(Message message) {
+        privateMessages.add(message);
     }
 }

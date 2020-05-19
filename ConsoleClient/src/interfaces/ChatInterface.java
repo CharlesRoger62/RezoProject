@@ -19,4 +19,10 @@ public interface ChatInterface extends Remote {
     public void connectedTopic(String topic) throws RemoteException, InterruptedException;
 
     public List<String> getGroupConnection(String group) throws RemoteException, InterruptedException;//, JMSException;
+
+    public List<String> getPrivateMessages() throws RemoteException, InterruptedException;
+
+    public boolean isNewPrivateMessage() throws RemoteException, InterruptedException;
+
+    public void sendPrivateMessage(String pseudo, String message) throws RemoteException, InterruptedException;
 }

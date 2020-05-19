@@ -1,8 +1,10 @@
 package cli.framework;
 
 
+import interfaces.StaticInfo;
 import logging.Logger;
 
+import java.rmi.RemoteException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,7 +16,15 @@ public class Shell<T> {
     private Map<Integer, Class<? extends Command<T>>> commands = new HashMap<>();
 
     public final void run() {
-        //Logger.getLogger().println("Interactive shell started. Type " + HELP_SYMBOL + " for help.");
+        try {
+            if(StaticInfo.getChatInterface() != null) {
+                Logger.getLogger().println((StaticInfo.getChatInterface().isNewPrivateMessage()) ? "You have a new private message" : "no new message");
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Scanner scanner = new Scanner(System.in);
         boolean shouldContinue = true;
 

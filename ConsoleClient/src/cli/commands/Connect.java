@@ -57,7 +57,9 @@ public class Connect extends Command<PDPublicAPI> {
                         GetListGroup.class,
                         GetMyListGroup.class,
                         VisualiseGroup.class,
-                        JoinGroup.class
+                        JoinGroup.class,
+                        GetPrivateMessages.class,
+                        SendPrivateMessage.class
                 );
                 shell.run();
             }
